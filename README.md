@@ -8,7 +8,10 @@
 
 <h3><code>rashid@github ~ $ whoami</code></h3>
 
-<img src="./terminal.svg" width="1000" alt="Rashid Bittar. ASCII-Monogramm RB und Terminal-Infokarte: Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt." />
+<picture>
+  <source media="(max-width: 1100px)" srcset="./terminal-mobile.svg" />
+  <img src="./terminal.svg" width="1000" alt="ASCII-Porträt von Rashid Bittar und Terminal-Infokarte: Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt." />
+</picture>
 
 <br><br>
 

@@ -2,7 +2,7 @@ import unittest
 from datetime import date, timedelta
 from xml.etree import ElementTree
 
-from update_profile import parse_calendar, render_heatmap, render_terminal
+from update_profile import parse_calendar, render_heatmap, render_terminal, render_mobile_terminal
 
 
 TODAY = date(2026, 10, 23)
@@ -28,7 +28,7 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(len(days), 370)
         self.assertEqual(sum(day["count"] for day in days), 12)
         self.assertEqual(days[-1]["date"], TODAY.isoformat())
-        for source in (render_terminal(), render_heatmap(days, TODAY)):
+        for source in (render_terminal(), render_mobile_terminal(), render_heatmap(days, TODAY)):
             root = ElementTree.fromstring(source)
             self.assertEqual(root.tag, "{http://www.w3.org/2000/svg}svg")
             self.assertNotIn("<script", source)

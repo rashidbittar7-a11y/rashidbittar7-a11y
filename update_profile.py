@@ -105,25 +105,17 @@ def chrome(label, width=1000):
 
 
 def render_terminal():
-    rows = [
-        "########.   ########.",
-        "##      ##  ##      ##",
-        "##      ##  ##      ##",
-        "########'   ########<",
-        "##   ##     ##      ##",
-        "##    ##    ##      ##",
-        "##     ##   ########'",
-    ]
+    rows = (ROOT / "portrait.txt").read_text(encoding="ascii").splitlines()
     parts = [chrome("rashid@github: ~ / whoami")]
     parts.append('<path d="M366 80V357" stroke="#2a3739"/>')
     parts.append(text(37, 94, "IDENTITY / 01", 12, "#718988"))
     for index, row in enumerate(rows):
         parts.append(text(
-            36, 145 + index * 25, row, 21, "#d7e5e1",
-            f'xml:space="preserve" class="ascii-row" style="animation-delay:{index * .1:.2f}s"'
+            38, 110 + index * 5, row, 5, "#d7e5e1",
+            f'xml:space="preserve" class="ascii-row" style="animation-delay:{index * .018:.2f}s"'
         ))
     parts.extend([
-        text(37, 346, "RASHID BITTAR", 14, "#78e4a0"),
+        text(37, 367, "RASHID BITTAR", 14, "#78e4a0"),
         text(407, 105, "rashid@github", 26, "#edf5f2", 'font-weight="700"'),
         text(407, 132, "---------------------------", 16, "#48645c"),
     ])
@@ -145,9 +137,38 @@ def render_terminal():
 @keyframes type { from { opacity: 0; clip-path: inset(0 100% 0 0); } to { opacity: 1; clip-path: inset(0); } }'''
     return svg_document(
         1000, 450, "Rashid Bittar – Terminal-Profil",
-        "ASCII-Monogramm RB. Rashid Bittar, Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt.",
+        "ASCII-Porträt aus dem öffentlichen GitHub-Avatar. Rashid Bittar, Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt.",
         "".join(parts), css
     )
+
+
+def render_mobile_terminal():
+    rows = (ROOT / "portrait.txt").read_text(encoding="ascii").splitlines()
+    parts = [
+        '<path d="M1 47H639" stroke="#2a3739"/>',
+        '<circle cx="25" cy="25" r="4" fill="#78e4a0"/>',
+        text(45, 30, "rashid@github: ~ / whoami", 15, "#93a8a7"),
+        text(320, 92, "RASHID BITTAR", 24, "#edf5f2", 'text-anchor="middle" font-weight="700"'),
+    ]
+    for index, row in enumerate(rows):
+        parts.append(text(
+            140, 124 + index * 6.25, row, 6.25, "#d7e5e1",
+            f'xml:space="preserve" class="line" style="animation-delay:{index * .018:.2f}s"'
+        ))
+    parts.append('<path d="M35 442H605" stroke="#2a3739"/>')
+    fields = [
+        ("Name", "Rashid Bittar"), ("Fokus", "Webentwicklung"),
+        ("Stack", "JavaScript / TypeScript"), ("Projekte", "Privat entwickelt"),
+        ("Antrieb", "Ideen in Anwendungen verwandeln"),
+    ]
+    for index, (key, value) in enumerate(fields):
+        parts.append(f'<g class="line" style="animation-delay:{.8 + index * .13:.2f}s">')
+        parts.append(text(35, 491 + index * 45, key, 20, "#78e4a0"))
+        parts.append(text(165, 491 + index * 45, value, 20))
+        parts.append('</g>')
+    parts.append('<path d="M35 712H605" stroke="#2a3739"/>')
+    parts.append(text(35, 751, "$ build --learn --improve", 21, "#93a8a7"))
+    return svg_document(640, 786, "Rashid Bittar – Terminal-Profil", "ASCII-Porträt und Infokarte, für schmale Ansichten.", "".join(parts))
 
 
 def render_heatmap(days, today):
@@ -203,6 +224,7 @@ def main():
         days = parse_calendar(response.read().decode("utf-8"), today)
     outputs = {
         "terminal.svg": render_terminal(),
+        "terminal-mobile.svg": render_mobile_terminal(),
         "contributions.svg": render_heatmap(days, today),
         "contributions.json": json.dumps({"updated": today.isoformat(), "days": days}, indent=2) + "\n",
     }
