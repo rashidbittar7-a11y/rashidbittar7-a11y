@@ -1,39 +1,21 @@
 <div align="center">
 
-<sub>WEBENTWICKLUNG · JAVASCRIPT · TYPESCRIPT</sub>
+<h3><code>rashid@github ~ $ ./activity</code></h3>
 
-# Hi, ich bin Rashid Bittar.
+<img src="./contributions.svg" width="1000" alt="Animierter Kalender meiner öffentlich sichtbaren GitHub-Beiträge. Tägliche Aktualisierung mit echten Daten." />
 
-### Ideen in Anwendungen verwandeln.
+<br><br>
 
-Ich arbeite an Webanwendungen – von der ersten Idee bis zur funktionierenden Lösung.
+<h3><code>rashid@github ~ $ whoami</code></h3>
 
-<br>
+<img src="./terminal.svg" width="1000" alt="Rashid Bittar. ASCII-Monogramm RB und Terminal-Infokarte: Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt." />
 
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=171717)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)
+<br><br>
 
-</div>
+<sub>IDEEN IN ANWENDUNGEN VERWANDELN.</sub>
 
 <br>
 
-## Mein Fokus
+<sub>Eigene SVG-Grafiken · Öffentliche GitHub-Daten · Tägliche Aktualisierung</sub>
 
-| Oberflächen | Funktionen | Weiterentwicklung |
-| :--- | :--- | :--- |
-| Klar und übersichtlich gestalten. | Praktische Abläufe einfacher machen. | Ideen ausprobieren und Lösungen verbessern. |
-
-<br>
-
-## Projekte
-
-Meine aktuellen Projekte entwickle ich in privaten Repositories.
-
-<br>
-
----
-
-<div align="center">
-<sub>RASHID BITTAR · IDEEN. CODE. FORTSCHRITT.</sub>
 </div>
