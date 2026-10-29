@@ -1,24 +1,16 @@
-<div align="center">
-
-<h3><code>rashid@github ~ $ ./activity</code></h3>
-
-<img src="./contributions.svg" width="1000" alt="Animierter Kalender meiner öffentlich sichtbaren GitHub-Beiträge. Tägliche Aktualisierung mit echten Daten." />
-
-<br><br>
-
-<h3><code>rashid@github ~ $ whoami</code></h3>
-
 <picture>
-  <source media="(max-width: 1100px)" srcset="./terminal-mobile.svg" />
-  <img src="./terminal.svg" width="1000" alt="ASCII-Porträt von Rashid Bittar und Terminal-Infokarte: Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt." />
+  <source media="(max-width: 1100px) and (prefers-color-scheme: dark)" srcset="./terminal-mobile.svg" />
+  <source media="(max-width: 1100px)" srcset="./terminal-mobile-light.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="./terminal.svg" />
+  <img src="./terminal-light.svg" width="100%" alt="ASCII-Porträt von Rashid Bittar und Terminal-Infokarte: Webentwicklung mit JavaScript und TypeScript. Projekte werden privat entwickelt." />
 </picture>
 
-<br><br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./stack.svg" />
+  <img src="./stack-light.svg" width="100%" alt="Stack: JavaScript, TypeScript, Node.js, SQLite, HTML, CSS, REST-APIs, Python, Git, GitHub Actions" />
+</picture>
 
-<sub>IDEEN IN ANWENDUNGEN VERWANDELN.</sub>
-
-<br>
-
-<sub>Eigene SVG-Grafiken · Öffentliche GitHub-Daten · Tägliche Aktualisierung</sub>
-
-</div>
+<a href="https://github.com/rashidbittar7-a11y?tab=overview"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./contributions.svg" />
+  <img src="./contributions-light.svg" width="100%" alt="Animierter Kalender meiner öffentlich sichtbaren GitHub-Beiträge. Tägliche Aktualisierung mit echten Daten." />
+</picture></a>

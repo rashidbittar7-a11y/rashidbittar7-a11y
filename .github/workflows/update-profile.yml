@@ -31,7 +31,7 @@ jobs:
         run: python3 update_profile.py
       - name: Commit updated graphics
         run: |
-          git add terminal.svg terminal-mobile.svg contributions.svg contributions.json
+          git add *.svg contributions.json
           if git diff --cached --quiet; then
             echo 'Profile art is up to date.'
             exit 0

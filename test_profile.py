@@ -2,7 +2,7 @@ import unittest
 from datetime import date, timedelta
 from xml.etree import ElementTree
 
-from update_profile import parse_calendar, render_heatmap, render_terminal, render_mobile_terminal
+from update_profile import LIGHT, light, parse_calendar, render_heatmap, render_stack, render_terminal, render_mobile_terminal
 
 
 TODAY = date(2026, 10, 23)
@@ -28,12 +28,18 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(len(days), 370)
         self.assertEqual(sum(day["count"] for day in days), 12)
         self.assertEqual(days[-1]["date"], TODAY.isoformat())
-        for source in (render_terminal(), render_mobile_terminal(), render_heatmap(days, TODAY)):
+        dark = (render_terminal(), render_mobile_terminal(), render_stack(), render_heatmap(days, TODAY))
+        for source in dark + tuple(map(light, dark)):
             root = ElementTree.fromstring(source)
             self.assertEqual(root.tag, "{http://www.w3.org/2000/svg}svg")
             self.assertNotIn("<script", source)
             self.assertNotIn("https://", source)
             self.assertIn("prefers-reduced-motion", source)
+
+    def test_light_variant_leaves_no_dark_colours(self):
+        source = light(render_terminal() + render_stack())
+        for dark in LIGHT:
+            self.assertNotIn(dark, source)
 
     def test_thousands_in_tooltips(self):
         source = calendar_fixture().replace("12 contributions", "1,234 contributions")

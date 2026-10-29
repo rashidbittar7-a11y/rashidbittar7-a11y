@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parent
 USERNAME = "rashidbittar7-a11y"
 PALETTE = ("#192322", "#164936", "#217a50", "#32b774", "#78e4a0")
 FONT = "Consolas, 'Liberation Mono', monospace"
+# Dark colours are written inline; the light variant swaps each one (GitHub picks via prefers-color-scheme).
+LIGHT = {
+    "#0d1416": "#f7f9f8", "#2a3739": "#d3dcda", "#4b6263": "#a9b7b5", "#78e4a0": "#17794a",
+    "#93a8a7": "#4f6463", "#718988": "#5c706f", "#c9d4d3": "#2b3635", "#d7e5e1": "#1f2a29",
+    "#edf5f2": "#0f1716", "#48645c": "#9fb3ad", "#192322": "#e3e9e7", "#164936": "#a6e3bd",
+    "#217a50": "#5cc48a", "#32b774": "#2e9e62", "#1d2a2b": "#eef2f1",
+}
+STACK = ("JavaScript", "TypeScript", "Node.js", "SQLite", "HTML", "CSS", "REST-APIs", "Python", "Git", "GitHub Actions")
 
 
 class CalendarParser(HTMLParser):
@@ -171,6 +179,27 @@ def render_mobile_terminal():
     return svg_document(640, 786, "Rashid Bittar – Terminal-Profil", "ASCII-Porträt und Infokarte, für schmale Ansichten.", "".join(parts))
 
 
+def light(svg):
+    return re.sub("|".join(LIGHT), lambda m: LIGHT[m[0]], svg)
+
+
+def render_stack():
+    parts = [chrome("rashid@github: ~ / stack"), text(37, 94, "STACK / 02", 12, "#718988")]
+    x, y = 37, 120
+    for index, name in enumerate(STACK):
+        width = 26 + len(name) * 9
+        if x + width > 963:
+            x, y = 37, y + 48
+        parts.append(
+            f'<g class="line" style="animation-delay:{.2 + index * .06:.2f}s">'
+            f'<rect x="{x}" y="{y}" width="{width}" height="34" rx="17" fill="#1d2a2b" stroke="#2a3739"/>'
+            + text(x + 13, y + 22, name, 15, "#d7e5e1") + '</g>'
+        )
+        x += width + 10
+    parts.append(text(37, y + 78, "~/stack $ lernen, bauen, verbessern", 14, "#93a8a7"))
+    return svg_document(1000, y + 104, "Stack von Rashid Bittar", "Technologien: " + ", ".join(STACK) + ".", "".join(parts))
+
+
 def render_heatmap(days, today):
     total = sum(day["count"] for day in days)
     active = sum(day["count"] > 0 for day in days)
@@ -222,12 +251,17 @@ def main():
     # Deliberately unauthenticated: private repository activity is not collected.
     with urlopen(request, timeout=40) as response:
         days = parse_calendar(response.read().decode("utf-8"), today)
-    outputs = {
-        "terminal.svg": render_terminal(),
-        "terminal-mobile.svg": render_mobile_terminal(),
-        "contributions.svg": render_heatmap(days, today),
-        "contributions.json": json.dumps({"updated": today.isoformat(), "days": days}, indent=2) + "\n",
+    graphics = {
+        "terminal": render_terminal(),
+        "terminal-mobile": render_mobile_terminal(),
+        "stack": render_stack(),
+        "contributions": render_heatmap(days, today),
     }
+    outputs = {f"{name}.svg": svg for name, svg in graphics.items()}
+    outputs.update({f"{name}-light.svg": light(svg) for name, svg in graphics.items()})
+    outputs.update({
+        "contributions.json": json.dumps({"updated": today.isoformat(), "days": days}, indent=2) + "\n",
+    })
     for filename, contents in outputs.items():
         (ROOT / filename).write_text(contents, encoding="utf-8")
     print(f"Generated profile art: {len(days)} days, {sum(day['count'] for day in days)} public contributions")
